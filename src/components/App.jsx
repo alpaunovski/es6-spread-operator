@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 function App() {
+  // Declare a new state variable, which we'll call "contact" and assign an object to it with empty default field values.
   const [contact, setContact] = useState({
     fName: "",
     lName: "",
@@ -8,31 +9,20 @@ function App() {
   });
 
   function handleChange(event) {
+    // decomposing the event object
     const { name, value } = event.target;
 
     setContact(prevValue => {
-      if (name === "fName") {
-        return {
-          fName: value,
-          lName: prevValue.lName,
-          email: prevValue.email
-        };
-      } else if (name === "lName") {
-        return {
-          fName: prevValue.fName,
-          lName: value,
-          email: prevValue.email
-        };
-      } else if (name === "email") {
-        return {
-          fName: prevValue.fName,
-          lName: prevValue.lName,
-          email: value
-        };
+      return {
+        // spread operator instead of conditional statement
+        ...prevValue,
+        // using array syntax so we can use the name of the input as a variable instead of a key: value pair
+        [name]: value
       }
     });
   }
 
+  //Main function return statement
   return (
     <div className="container">
       <h1>
